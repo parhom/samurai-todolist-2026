@@ -11,7 +11,7 @@ type TodolistItemProps = {
 	title: string
 	tasks: Task[]
 	deleteTaskHandler: (taskId:number) => void
-	filterTaskHandler?: (filter:filterValues) => void
+	filterTaskHandler: (filter:filterValues) => void
 };
 
 export const TodolistItem = ({title, tasks, deleteTaskHandler, filterTaskHandler}:TodolistItemProps) => {
