@@ -31,8 +31,10 @@ export const TodolistItem = ({title, tasks, deleteTaskHandler, filterTaskHandler
 	}
 	
 	const inputOnKeyDownHandler = (event:KeyboardEvent<HTMLInputElement>) =>{
-		event.key === 'Enter' && createTaskHandler(taskTitle)
-		setTaskTitle('')
+		if (event.key === 'Enter') {
+			createTaskHandler(taskTitle)
+			setTaskTitle('')
+		}
 	}
 	
 	return (
