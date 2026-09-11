@@ -1,8 +1,9 @@
 import {Button} from "./Button.tsx";
 import {filterValues} from "./App.tsx";
+import {ChangeEvent, KeyboardEvent , useState} from "react";
 
 export type Task = {
-	id: number
+	id: string
 	title: string
 	isDone: boolean
 }
@@ -10,17 +11,38 @@ export type Task = {
 type TodolistItemProps = {
 	title: string
 	tasks: Task[]
-	deleteTaskHandler: (taskId:number) => void
+	deleteTaskHandler: (taskId:string) => void
 	filterTaskHandler: (filter:filterValues) => void
+	createTaskHandler: (taskTitle:string) => void
 };
 
-export const TodolistItem = ({title, tasks, deleteTaskHandler, filterTaskHandler}:TodolistItemProps) => {
+
+export const TodolistItem = ({title, tasks, deleteTaskHandler, filterTaskHandler, createTaskHandler}:TodolistItemProps) => {
+	
+	const [taskTitle, setTaskTitle] = useState('')
+	
+	const inputOnChangeHandler = (event:ChangeEvent<HTMLInputElement>) => {
+		setTaskTitle(event.currentTarget.value)
+	}
+	
+	const addTaskTitleHandler = () =>{
+		createTaskHandler(taskTitle)
+		setTaskTitle('')
+	}
+	
+	const inputOnKeyDownHandler = (event:KeyboardEvent<HTMLInputElement>) =>{
+		event.key === 'Enter' && createTaskHandler(taskTitle)
+	}
+	
 	return (
 		<div>
 			<h3>{title}</h3>
 			<div>
-				<input/>
-				<Button title={"+"}/>
+				<input value={taskTitle}
+				       onChange={inputOnChangeHandler}
+				       onKeyDown={inputOnKeyDownHandler}
+				/>
+				<Button title={"+"} onClick={addTaskTitleHandler}/>
 			</div>
 			{ tasks.length === 0 ?
 				(<span> tasks not found </span>) :
