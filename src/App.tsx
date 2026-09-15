@@ -6,7 +6,7 @@ import {v1} from "uuid";
 export type filterValues = 'all' | 'active' | 'completed'
 
 export const App = () => {
-	let [tasks, setTesks] = useState<Task[]>([
+	let [tasks, setTasks] = useState<Task[]>([
 		{id: v1(), title: 'HTML&CSS', isDone: true},
 		{id: v1(), title: 'JS', isDone: true},
 		{id: v1(), title: 'ReactJS', isDone: false},
@@ -31,7 +31,7 @@ export const App = () => {
 		tasks = tasks.filter(task => {
 			return task.id !== taskId
 		})
-		setTesks(tasks)
+		setTasks(tasks)
 	}
 	
 	const filterTaskHandler = (filter: filterValues) => {
@@ -40,7 +40,14 @@ export const App = () => {
 	
 	const createTaskHandler = (taskTitle:string) =>{
 		const newTask = {id: v1(), title: taskTitle, isDone: false}
-		setTesks([newTask, ...tasks])
+		setTasks([newTask, ...tasks])
+	}
+	
+	const changeTaskStatus = (taskId:string, isDone:boolean)=>{
+		const newState = tasks.map(task=>{
+			return taskId === task.id ? {...task, isDone} : task
+		})
+		setTasks(newState)
 	}
 	
 	return (
@@ -48,9 +55,11 @@ export const App = () => {
 			<TodolistItem
 				title={"What to learn"}
 				tasks={filteredTasks}
+				filter={filter}
 				deleteTaskHandler={deleteTaskHandler}
 				filterTaskHandler={filterTaskHandler}
 				createTaskHandler={createTaskHandler}
+				changeTaskStatus={changeTaskStatus}
 			/>
 		</div>
 	)
