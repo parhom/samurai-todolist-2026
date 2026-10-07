@@ -9,7 +9,9 @@
     "test": "vitest",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
-    "predeploy": "pnpm run build"
+    "predeploy": "pnpm run build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "gh-pages": "^6.3.0",
@@ -24,6 +26,16 @@
     "globals": "15.14.0",
     "typescript": "5.7.2",
     "vite": "6.4.3",
-    "vitest": "3.2.6"
+    "vitest": "3.2.6",
+    "storybook": "^10.6.1",
+    "@storybook/react-vite": "^10.6.1",
+    "@chromatic-com/storybook": "latest",
+    "@storybook/addon-vitest": "^10.6.1",
+    "@storybook/addon-a11y": "^10.6.1",
+    "@storybook/addon-docs": "^10.6.1",
+    "@storybook/addon-onboarding": "^10.6.1",
+    "@vitest/browser": "3.2.6",
+    "@vitest/coverage-v8": "3.2.6",
+    "playwright": "latest"
   }
 }
