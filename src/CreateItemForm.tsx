@@ -1,5 +1,7 @@
-import {Button} from "./Button.tsx";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 type CreateItemFormProps = {
 	onCreateItem: (title:string) =>void
@@ -32,13 +34,17 @@ export const CreateItemForm = ({onCreateItem} :CreateItemFormProps) => {
 	
 	return (
 		<div>
-			<input value={title}
-			       onChange={changeItemTitleHandler}
-			       onKeyDown={createItemOnEnterHandler}
-			       className={error ? 'error' : ''}
+			<TextField value={title}
+			           label={'Enter a title'}
+			           onChange={changeItemTitleHandler}
+			           onKeyDown={createItemOnEnterHandler}
+			           error={!!error}
+			           variant={'standard'}
+			           helperText={error}
 			/>
-			<Button title={"+"} onClick={createItemHandler}/>
-			{error && <div className={'error-message'}>{error}</div>}
+			<IconButton onClick={createItemHandler} size={"small"} color={'primary'}>
+				<AddBoxIcon/>
+			</IconButton>
 		</div>
 	);
 };
