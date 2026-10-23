@@ -6,7 +6,8 @@ import react from '@vitejs/plugin-react-swc';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
-const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
+import { playwright } from '@vitest/browser-playwright';
+const dirname = import.meta.dirname;
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
@@ -26,12 +27,21 @@ export default defineConfig({
         browser: {
           enabled: true,
           headless: true,
-          provider: 'playwright',
+          provider: playwright({}),
           instances: [{
             browser: 'chromium'
           }]
         }
       }
-    }]
+    },
+    {
+      extends: true,
+      test: {
+        name: 'unit',
+        include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
+        environment: 'node',
+      },
+    }
+    ]
   }
 });
