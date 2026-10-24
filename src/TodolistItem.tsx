@@ -1,6 +1,6 @@
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import {filterValues, Todolist} from "./App.tsx";
+import {filterValues, Todolist} from "./app/App.tsx";
 import {ChangeEvent} from "react";
 import {CreateItemForm} from "./CreateItemForm.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
