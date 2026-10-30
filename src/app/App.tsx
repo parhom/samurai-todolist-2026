@@ -1,7 +1,5 @@
 import './App.css'
 import {Task, TodolistItem} from "../TodolistItem.tsx";
-import {useReducer, useState} from "react";
-import {v1} from "uuid";
 import {CreateItemForm} from "../CreateItemForm.tsx";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -18,22 +16,21 @@ import Switch from '@mui/material/Switch'
 import {
 	changeTodolistFilterAC, changeTodolistTitleAC,
 	createTodolistAC,
-	deleteTodolistAC,
-	todolistsReducer
+	deleteTodolistAC
 } from "../model/todolists-reducer.ts";
 import {
 	changeTaskStatusAC,
 	changeTaskTitleAC,
 	createTaskAC,
-	deleteTaskAC,
-	tasksReducer
+	deleteTaskAC
 } from "../model/tasks-reducer.ts";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "./store.ts";
 import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {selectTodolists} from "../model/todolists-selectors.ts";
 import {selectTasks} from "../model/tasks-selectors.ts";
+import {changeThemeModeAC} from "./app-reducer.ts";
+import {selectThemeMode} from "./app-selectors.ts";
+import {getTheme} from "../common/theme/theme.ts";
 
 export type filterValues = 'all' | 'active' | 'completed'
 
@@ -47,22 +44,13 @@ export type TasksState  = {
 	[key:string]: Task[]
 }
 
-type ThemeMode = 'dark' | 'light'
-
 export const App = () => {
-	const [themeMode, setThemeMode] = useState<ThemeMode>('light')
+	const themeMode = useAppSelector(selectThemeMode)
 	
-	const theme = createTheme({
-		palette: {
-			mode: themeMode,
-			primary: {
-				main: '#ef6c00',
-			},
-		},
-	})
+	const theme = getTheme(themeMode.themeMode)
 	
 	const changeMode = () => {
-		setThemeMode(themeMode === 'light' ? 'dark' : 'light')
+		dispatch(changeThemeModeAC({mode: themeMode.themeMode === 'light' ? 'dark' : 'light'}))
 	}
 	
 	const todolists = useAppSelector(selectTodolists)
