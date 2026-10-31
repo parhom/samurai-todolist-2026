@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Paper from "@mui/material/Paper";
 import {containerSx} from "../TodolistItem.styles.ts";
 import {NavButton} from '../NavButton.ts'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import Switch from '@mui/material/Switch'
 import {
