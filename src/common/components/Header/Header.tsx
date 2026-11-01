@@ -7,10 +7,10 @@ import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
 import {selectThemeMode} from "@/app/app-selectors.ts";
 import {getTheme} from "@/common/theme/theme.ts";
-import {NavButton} from "@/NavButton.ts";
+import {NavButton} from "@/common/components/NavButton/NavButton.ts";
 import Switch from "@mui/material/Switch";
-import {containerSx} from "@/TodolistItem.styles.ts";
 import Container from "@mui/material/Container";
+import {containerSx} from "@/common/styles/container.styles.ts";
 
 export const Header = () => {
 	

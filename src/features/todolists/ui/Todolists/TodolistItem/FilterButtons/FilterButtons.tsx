@@ -1,9 +1,9 @@
-import {changeTodolistFilterAC, filterValues} from "@/model/todolists-reducer.ts";
+import {changeTodolistFilterAC, filterValues} from "@/features/todolists/model/todolists-reducer.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
-import {TodolistItemProps} from "@/TodolistItem.tsx";
-import {containerSx} from "@/TodolistItem.styles.ts";
+import {TodolistItemProps} from "@/features/todolists/ui/Todolists/TodolistItem/TodolistItem.tsx";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import {containerSx} from "@/common/styles/container.styles.ts";
 
 export const FilterButtons = ({todolist}:TodolistItemProps) => {
 	const {id, filter} = todolist
