@@ -1,9 +1,10 @@
+import type { TaskStatus, TaskPriority } from "@/common/enums/enums"
 import type { ApiResource, BaseResponse } from "@/common/types"
 
 export type TaskAttributes = {
   title: string
-  status: number
-  priority: number
+  status: TaskStatus
+  priority: TaskPriority
   startDate: string | null
   deadline: string | null
   order: number
@@ -18,8 +19,8 @@ export type GetTasksResponse = BaseResponse<ApiResource<TaskAttributes>[]>
 export type UpdateTaskModel = {
   title?: string
   description?: string | null
-  status?: number
-  priority?: number
+  status?: TaskStatus
+  priority?: TaskPriority
   startDate?: string | null
   deadline?: string | null
 }
