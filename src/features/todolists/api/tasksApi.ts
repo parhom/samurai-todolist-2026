@@ -1,0 +1,38 @@
+import { instance } from "@/common/instance"
+import type { ApiResource, BaseResponse } from "@/common/types"
+import type {
+  DomainTask,
+  GetTasksResponse,
+  TaskAttributes,
+  UpdateTaskModel,
+} from "@/features/todolists/api/tasksApi.types"
+
+const toDomainTask = ({ id, attributes }: ApiResource<TaskAttributes>, todolistId: string): DomainTask => ({
+  id,
+  ...attributes,
+  todolistId,
+})
+
+export const tasksApi = {
+  getTasks(todolistId: string) {
+    return instance
+      .get<GetTasksResponse>(`/boards/${todolistId}/tasks`)
+      .then((res) => res.data.data.map((task) => toDomainTask(task, todolistId)))
+  },
+  createTask(todolistId: string, title: string) {
+    return instance
+      .post<BaseResponse<ApiResource<TaskAttributes>>>(`/boards/${todolistId}/tasks`, {
+        data: { type: "tasks", attributes: { title } },
+      })
+      .then((res) => toDomainTask(res.data.data, todolistId))
+  },
+  updateTask(payload: { todolistId: string; taskId: string; model: UpdateTaskModel }) {
+    const { todolistId, taskId, model } = payload
+    return instance
+      .patch(`/boards/${todolistId}/tasks/${taskId}`, { data: { type: "tasks", attributes: model } })
+      .then((res) => toDomainTask(res.data.data, todolistId))
+  },
+  deleteTask(todolistId: string, taskId: string) {
+    return instance.delete(`/boards/${todolistId}/tasks/${taskId}`).then((res) => res.status)
+  },
+}
