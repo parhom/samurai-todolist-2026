@@ -1,12 +1,9 @@
 import axios from "axios"
 
-const token = "xxx"
-const apiKey = "xxx"
-
 export const instance = axios.create({
-	baseURL: "https://trelly.it-incubator.app/api/1.0",
-	headers: {
-		Authorization: `Bearer ${token}`,
-		"api-key": apiKey,
-	},
+  baseURL: import.meta.env.VITE_BASE_URL,
+  headers: {
+    Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+    "api-key": import.meta.env.VITE_API_KEY,
+  },
 })
